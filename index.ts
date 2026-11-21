@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import express, {type Express, type Request, type Response} from "express";
-import pg, {type Pool, type PoolConfig} from "pg";
+import pg, {type Pool, type PoolConfig, type QueryResult} from "pg";
 
 const app: Express = express();
 const port: number = 3000;
@@ -28,9 +28,13 @@ interface BookEntry
 
 let books: BookEntry[] = [];
 
-function getHomePage(_req: Request, res: Response): void
+async function getHomePage(_req: Request, res: Response): Promise<void>
 {
-    res.render("index.ejs");
+    const result: QueryResult<BookEntry> = await db.query("SELECT * FROM books ORDER BY id");
+
+    books = result.rows;
+
+    res.render("index.ejs", {books: books});
 }
 
 function logServerStart(): void
