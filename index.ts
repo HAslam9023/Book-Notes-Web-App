@@ -28,6 +28,8 @@ interface BookEntry
 
 let books: BookEntry[] = [];
 
+app.use(express.static("public"));
+
 async function getHomePage(_req: Request, res: Response): Promise<void>
 {
     const result: QueryResult<BookEntry> = await db.query("SELECT * FROM books ORDER BY id");

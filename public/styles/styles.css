@@ -1,0 +1,49 @@
+body
+{
+    background-color: #091413;
+    color: #408A71;
+}
+
+.flex
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Cantarell", sans-serif;
+}
+
+.flex > div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+}
+
+.flex > div > div > div > p
+{
+    color: #285A48;
+}
+
+h1, h2, h3
+{
+    font-family: "Old Standard TT", serif;
+    color: #B0E4CC;
+}
+
+h1
+{
+    font-size: 54px;
+}
+
+h2
+{
+    font-size: 32px;
+}
+
+h3
+{
+    font-size: 24px;
+}
