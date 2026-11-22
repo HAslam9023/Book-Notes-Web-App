@@ -19,6 +19,7 @@
 
                 <div>
                     <% for (let book of locals.books) { %>
+                        <img src="<%= book.cover_img_src %>" alt="Voume <%= locals.books.indexOf(book) + 1 %>">
                         <h3><%= book.title %></h3>
                         <div class="book-information">
                             <p><%= book.date.toDateString() %></p>
