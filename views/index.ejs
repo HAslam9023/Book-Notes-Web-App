@@ -6,6 +6,20 @@
     </head>
 
     <body>
+        <h1>Book Notes</h1>
+        <h2>My Books</h2>
+        <p>I have currently read 6 books as of November 2026. You can add, edit, or delete book entries on
+            this list as you please.</p>
 
+        <div>
+            <% for (let book of locals.books) { %>
+                <h3><%= book.title %></h3>
+                <div>
+                    <p><%= book.date.toDateString() %></p>
+                    <p><%= book.rating %> / 10</p>
+                </div>
+                <p><%= book.notes %></p>
+            <% } %>
+        </div>
     </body>
 </html>
