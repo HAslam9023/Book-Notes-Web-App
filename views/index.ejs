@@ -17,15 +17,17 @@
                 <p>I have currently read 6 books as of November 2026. You can add, edit, or delete book
                     entries on this list as you please.</p>
 
-                <div>
+                <div class="grid">
                     <% for (let book of locals.books) { %>
                         <img src="<%= book.cover_img_src %>" alt="Voume <%= locals.books.indexOf(book) + 1 %>">
-                        <h3><%= book.title %></h3>
-                        <div class="book-information">
-                            <p><%= book.date.toDateString() %></p>
-                            <p><%= book.rating %> / 10</p>
+                        <div>
+                            <h3><%= book.title %></h3>
+                            <div class="book-information">
+                                <p><%= book.date.toDateString() %></p>
+                                <p><%= book.rating %> / 10</p>
+                            </div>
+                            <p><%= book.notes %></p>
                         </div>
-                        <p><%= book.notes %></p>
                     <% } %>
                 </div>
             </div>
