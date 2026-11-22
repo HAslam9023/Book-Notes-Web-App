@@ -22,9 +22,11 @@ body
     width: 45%;
 }
 
-.flex > div > div > div > p
+.book-information > p
 {
     color: #285A48;
+    display: inline;
+    margin-right: 10px;
 }
 
 h1, h2, h3
