@@ -24,6 +24,7 @@ interface BookEntry
     rating: number;
     date: Date;
     notes: string;
+    cover_img_src: string;
 }
 
 let books: BookEntry[] = [];
