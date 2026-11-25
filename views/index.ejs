@@ -1,56 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Book Notes</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/styles/styles.css">
-    </head>
+<%- include("partials/header.ejs") %>
 
-    <body>
-        <div class="flex">
+<h2>My Books</h2>
+<p>I have currently read 6 books as of November 2026. You can add, edit, or delete book entries on this
+    list as you please.</p>
+
+<form action="/add" method="GET">
+    <button type="submit" class="btn add-btn">Add Book</button>
+</form>
+
+<div class="grid">
+    <% if (locals.books) { %>
+        <% for (let book of locals.books) { %>
+            <img src="<%= book.cover_img_src %>" alt="<%= book.title %> cover">
             <div>
-                <h1>Book Notes</h1>
-                <h2>My Books</h2>
-                <p>I have currently read 6 books as of November 2026. You can add, edit, or delete book
-                    entries on this list as you please.</p>
-
-                <form action="/add" method="GET">
-                    <button type="submit" class="btn add-btn">Add Book</button>
-                </form>
-
-                <div class="grid">
-                    <% if (locals.books) { %>
-                        <% for (let book of locals.books) { %>
-                            <img src="<%= book.cover_img_src %>" alt="<%= book.title %> cover">
-                            <div>
-                                <h3><%= book.title %></h3>
-                                <div class="book-information">
-                                    <p><%= book.date.toDateString() %></p>
-                                    <p><%= book.rating %> / 10</p>
-                                </div>
-                                <p><%= book.notes %></p>
-                                <div class="buttons">
-                                    <form action="/edit" method="POST">
-                                        <input type="hidden" name="id" value="<%= book.id %>">
-                                        <button type="submit" class="btn edit-btn">Edit</button>
-                                    </form>
-                                    <form action="/delete" method="POST">
-                                        <input type="hidden" name="id" value="<%= book.id %>">
-                                        <button type="submit" class="btn delete-btn">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        <% } %>
-                    <% } %>
+                <h3><%= book.title %></h3>
+                <div class="book-information">
+                    <p><%= book.date.toDateString() %></p>
+                    <p><%= book.rating %> / 10</p>
                 </div>
-
-                <footer style="margin-top: 20px;">
-                    <p>&copy;Aslam <%= new Date().getFullYear() %></p>
-                </footer>
+                <p><%= book.notes %></p>
+                <div class="buttons">
+                    <form action="/edit" method="POST">
+                        <input type="hidden" name="id" value="<%= book.id %>">
+                        <button type="submit" class="btn edit-btn">Edit</button>
+                    </form>
+                    <form action="/delete" method="POST">
+                        <input type="hidden" name="id" value="<%= book.id %>">
+                        <button type="submit" class="btn delete-btn">Delete</button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </body>
-</html>
+        <% } %>
+    <% } %>
+</div>
+
+<%- include("partials/footer.ejs") %>
