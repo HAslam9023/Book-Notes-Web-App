@@ -77,12 +77,21 @@ app.use(express.static("public"));
  */
 async function getHomePage(_req: Request, res: Response): Promise<void>
 {
-    // Retrieves book entries from the database
-    const result: QueryResult<BookEntry> = await db.query("SELECT * FROM books ORDER BY id");
+    try
+    {
+        // Retrieves book entries from the database
+        const result: QueryResult<BookEntry> = await db.query("SELECT * FROM books ORDER BY id");
 
-    books = result.rows;
+        books = result.rows;
 
-    res.render("index.ejs", {books: books});
+        res.render("index.ejs", {books: books});
+    }
+    catch (error)
+    {
+        console.log(error);
+
+        res.render("index.ejs");
+    }
 }
 
 /**

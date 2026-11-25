@@ -22,26 +22,28 @@
                 </form>
 
                 <div class="grid">
-                    <% for (let book of locals.books) { %>
-                        <img src="<%= book.cover_img_src %>" alt="<%= book.title %> cover">
-                        <div>
-                            <h3><%= book.title %></h3>
-                            <div class="book-information">
-                                <p><%= book.date.toDateString() %></p>
-                                <p><%= book.rating %> / 10</p>
+                    <% if (locals.books) { %>
+                        <% for (let book of locals.books) { %>
+                            <img src="<%= book.cover_img_src %>" alt="<%= book.title %> cover">
+                            <div>
+                                <h3><%= book.title %></h3>
+                                <div class="book-information">
+                                    <p><%= book.date.toDateString() %></p>
+                                    <p><%= book.rating %> / 10</p>
+                                </div>
+                                <p><%= book.notes %></p>
+                                <div class="buttons">
+                                    <form action="/edit" method="POST">
+                                        <input type="hidden" name="id" value="<%= book.id %>">
+                                        <button type="submit" class="btn edit-btn">Edit</button>
+                                    </form>
+                                    <form action="/delete" method="POST">
+                                        <input type="hidden" name="id" value="<%= book.id %>">
+                                        <button type="submit" class="btn delete-btn">Delete</button>
+                                    </form>
+                                </div>
                             </div>
-                            <p><%= book.notes %></p>
-                            <div class="buttons">
-                                <form action="/edit" method="POST">
-                                    <input type="hidden" name="id" value="<%= book.id %>">
-                                    <button type="submit" class="btn edit-btn">Edit</button>
-                                </form>
-                                <form action="/delete" method="POST">
-                                    <input type="hidden" name="id" value="<%= book.id %>">
-                                    <button type="submit" class="btn delete-btn">Delete</button>
-                                </form>
-                            </div>
-                        </div>
+                        <% } %>
                     <% } %>
                 </div>
 
