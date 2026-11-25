@@ -1,4 +1,5 @@
 // Imports the necessary modules and types
+import axios, {type AxiosResponse} from "axios";
 import dotenv from "dotenv";
 import express, {type Express, type Request, type Response} from "express";
 import pg, {type Pool, type PoolConfig, type QueryResult} from "pg";
@@ -40,6 +41,7 @@ const db: Pool = new pg.Pool(db_config);
 let books: BookEntry[] = [];
 
 // Middleware
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 /**
@@ -77,6 +79,47 @@ function getAddBookPage(_req: Request, res: Response): void
 }
 
 /**
+ * Adds a book entry to the database
+ * @param req The request object
+ * @param res The response object
+ */
+async function addBookEntry(req: Request, res: Response): Promise<void>
+{
+    const formData: Omit<BookEntry, "id"> = req.body;
+
+    try
+    {
+        const response: AxiosResponse = await axios.get(
+            `https://openlibrary.org/search.json?title=${formData.title}`
+        );
+
+        const cover_edition_key: string = response.data.docs[0].cover_edition_key;
+        const cover_img_url: string = `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`;
+
+        try
+        {
+            await db.query(
+                "INSERT INTO books (title, rating, date, notes, cover_img_src) " +
+                "VALUES ($1, $2, $3, $4, $5)",
+                [formData.title, formData.rating, formData.date, formData.notes, cover_img_url]
+            );
+
+            res.redirect("/");
+        }
+        catch (error)
+        {
+            console.log(error);
+
+            res.redirect("/add");
+        }
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
+}
+
+/**
  * Logs a message indicating that the server is listening
  */
 function logServerStart(): void
@@ -89,6 +132,8 @@ app.get("/", getHomePage);
 
 // The add book GET route
 app.get("/add", getAddBookPage);
+
+app.post("/addBook", addBookEntry);
 
 // Starts the server
 app.listen(port, logServerStart);
