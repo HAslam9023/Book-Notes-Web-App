@@ -85,6 +85,11 @@ async function getHomePage(_req: Request, res: Response): Promise<void>
     res.render("index.ejs", {books: books});
 }
 
+/**
+ * Renders the add book page
+ * @param _req The request object
+ * @param res The response object
+ */
 function getAddBookPage(_req: Request, res: Response): void
 {
     res.render("book.ejs");
