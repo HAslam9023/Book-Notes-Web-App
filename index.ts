@@ -2,6 +2,7 @@
 import dotenv from "dotenv";
 import express, {type Express, type Request, type Response} from "express";
 import pg, {type Pool, type PoolConfig, type QueryResult} from "pg";
+import type {BookEntry} from "./types";
 
 /**
  * Initializes the Express application
@@ -31,36 +32,7 @@ const db_config: PoolConfig = {
  */
 const db: Pool = new pg.Pool(db_config);
 
-/**
- * Defines the structure of a book entry
- */
-interface BookEntry
-{
-    /**
-     * The unique identifier for the book entry
-     */
-    id: number;
-    /**
-     * The title of the book
-     */
-    title: string;
-    /**
-     * The rating of the book
-     */
-    rating: number;
-    /**
-     * The date the book was read
-     */
-    date: Date;
-    /**
-     * The notes associated with the book
-     */
-    notes: string;
-    /**
-     * The source URL for the book cover image
-     */
-    cover_img_src: string;
-}
+
 
 /**
  * Initializes the array to store book entries
