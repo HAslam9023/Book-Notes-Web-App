@@ -4,9 +4,9 @@
 <p>I have currently read 6 books as of November 2026. You can add, edit, or delete book entries on this
     list as you please.</p>
 
-<form action="/add" method="GET">
-    <button type="submit" class="btn add-btn">Add Book</button>
-</form>
+<button type="submit" class="btn add-btn">
+    <a href="/add">Add Book</a>
+</button>
 
 <div class="grid">
     <% if (locals.books) { %>
