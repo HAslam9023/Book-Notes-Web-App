@@ -119,6 +119,13 @@ async function addBookEntry(req: Request, res: Response): Promise<void>
     }
 }
 
+function getEditBookPage(req: Request, res: Response): void
+{
+    const formData: Omit<BookEntry, "cover_img_src"> = req.body;
+
+    res.render("book.ejs", {data: formData});
+}
+
 /**
  * Deletes a book entry from the database
  * @param req The request object
@@ -151,14 +158,17 @@ function logServerStart(): void
 // The root GET route
 app.get("/", getHomePage);
 
-// The add book GET route
+// The add GET route
 app.get("/add", getAddBookPage);
 
-// The add book POST route
+// The addBook POST route
 app.post("/addBook", addBookEntry);
 
-// The delete book POST route
+// The delete POST route
 app.post("/delete", deleteBookEntry);
+
+// The edit POST route
+app.post("/edit", getEditBookPage);
 
 // Starts the server
 app.listen(port, logServerStart);

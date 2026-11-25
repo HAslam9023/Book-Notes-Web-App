@@ -1,19 +1,38 @@
 <%- include("partials/header.ejs") %>
 
-<form class="flex" action="/addBook" method="POST">
-    <label>
-        <input type="text" placeholder="Book Title" name="title">
-    </label>
-    <label>
-        <input type="number" placeholder="Rating" min="0" max="10" name="rating">
-    </label>
-    <label>
-        <input type="date" name="date">
-    </label>
-    <label>
-        <textarea placeholder="Notes" rows="5" cols="30" name="notes"></textarea>
-    </label>
-    <button type="submit" class="btn add-btn">Add</button>
-</form>
+<% if (locals.data) { %>
+    <form class="flex" action="/editBook" method="POST">
+        <input type="hidden" name="id" value="<%= locals.data.id %>">
+        <label>
+            <input type="text" value="<%= locals.data.title %>" name="title">
+        </label>
+        <label>
+            <input type="number" value="<%= locals.data.rating %>" min="0" max="10" name="rating">
+        </label>
+        <label>
+            <input type="date" name="date" value="<%= locals.data.date %>">
+        </label>
+        <label>
+            <textarea placeholder="Notes" rows="5" cols="30" name="notes"><%= locals.data.notes %></textarea>
+        </label>
+        <button type="submit" class="btn edit-btn">Edit</button>
+    </form>
+<% } else { %>
+    <form class="flex" action="/addBook" method="POST">
+        <label>
+            <input type="text" placeholder="Book Title" name="title">
+        </label>
+        <label>
+            <input type="number" placeholder="Rating" min="0" max="10" name="rating">
+        </label>
+        <label>
+            <input type="date" name="date">
+        </label>
+        <label>
+            <textarea placeholder="Notes" rows="5" cols="30" name="notes"></textarea>
+        </label>
+        <button type="submit" class="btn add-btn">Add</button>
+    </form>
+<% } %>
 
 <%- include("partials/footer.ejs") %>
