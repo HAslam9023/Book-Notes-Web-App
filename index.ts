@@ -85,6 +85,11 @@ async function getHomePage(_req: Request, res: Response): Promise<void>
     res.render("index.ejs", {books: books});
 }
 
+function getAddBookPage(_req: Request, res: Response): void
+{
+    res.render("book.ejs");
+}
+
 /**
  * Logs a message indicating that the server is listening
  */
@@ -95,6 +100,9 @@ function logServerStart(): void
 
 // The root GET route
 app.get("/", getHomePage);
+
+// The add book GET route
+app.get("/add", getAddBookPage);
 
 // Starts the server
 app.listen(port, logServerStart);
