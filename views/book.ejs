@@ -1,0 +1,16 @@
+<%- include("partials/header.ejs") %>
+
+<form class="flex" method="POST">
+    <label>
+        <input type="text" placeholder="Book Title" name="title">
+    </label>
+    <label>
+        <input type="number" placeholder="Rating" min="0" max="10" name="rating">
+    </label>
+    <label>
+        <textarea placeholder="Notes" rows="5" cols="30" name="notes"></textarea>
+    </label>
+    <button type="submit" class="btn add-btn">Add</button>
+</form>
+
+<%- include("partials/footer.ejs") %>
