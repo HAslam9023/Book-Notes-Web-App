@@ -120,6 +120,27 @@ async function addBookEntry(req: Request, res: Response): Promise<void>
 }
 
 /**
+ * Deletes a book entry from the database
+ * @param req The request object
+ * @param res The response object
+ */
+async function deleteBookEntry(req: Request, res: Response): Promise<void>
+{
+    const bookEntryID: number = parseInt(req.body.id);
+
+    try
+    {
+        await db.query("DELETE FROM books WHERE id = $1", [bookEntryID]);
+
+        res.redirect("/");
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
+}
+
+/**
  * Logs a message indicating that the server is listening
  */
 function logServerStart(): void
@@ -133,7 +154,11 @@ app.get("/", getHomePage);
 // The add book GET route
 app.get("/add", getAddBookPage);
 
+// The add book POST route
 app.post("/addBook", addBookEntry);
+
+// The delete book POST route
+app.post("/delete", deleteBookEntry);
 
 // Starts the server
 app.listen(port, logServerStart);
