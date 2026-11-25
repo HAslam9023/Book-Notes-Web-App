@@ -58,7 +58,7 @@ h3
     margin-top: 20px;
 }
 
-.delete-btn
+.btn
 {
     font-size: 0.9rem;
     font-weight: 700;
@@ -71,10 +71,16 @@ h3
     justify-content: center;
     line-height: 1;
     transition: all 0.2s ease;
+}
+
+.delete-btn
+{
+
     background: linear-gradient(to right, #D31027 0%, #EA384D 51%, #D31027 100%);
     color: #ffffff;
     box-shadow: 0 6px 16px rgba(124,111,255,0.35);
 }
+
 .delete-btn:hover
 {
     opacity: 0.9;
@@ -88,23 +94,27 @@ h3
 
 .edit-btn
 {
-    font-size: 0.9rem;
-    font-weight: 700;
-    padding: 11px 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    transition: all 0.2s ease;
     background: linear-gradient(135deg, #408A71, #285A48);
     color: #ffffff;
     box-shadow: 0 6px 16px rgba(64,138,113,0.35);
 }
+
 .edit-btn:hover
 {
     opacity: 0.9;
     transform: translateY(-2px);
+}
+
+.add-btn
+{
+    background: #7c6fff;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(124,111,255,0.35);
+}
+
+.add-btn:hover
+{
+    opacity: 0.88;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(124,111,255,0.45);
 }

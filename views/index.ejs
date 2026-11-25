@@ -17,6 +17,10 @@
                 <p>I have currently read 6 books as of November 2026. You can add, edit, or delete book
                     entries on this list as you please.</p>
 
+                <form action="/add" method="GET">
+                    <button type="submit" class="btn add-btn">Add Book</button>
+                </form>
+
                 <div class="grid">
                     <% for (let book of locals.books) { %>
                         <img src="<%= book.cover_img_src %>" alt="<%= book.title %> cover">
@@ -30,11 +34,11 @@
                             <div class="buttons">
                                 <form action="/edit" method="POST">
                                     <input type="hidden" name="id" value="<%= book.id %>">
-                                    <button type="submit" class="edit-btn">Edit</button>
+                                    <button type="submit" class="btn edit-btn">Edit</button>
                                 </form>
                                 <form action="/delete" method="POST">
                                     <input type="hidden" name="id" value="<%= book.id %>">
-                                    <button type="submit" class="delete-btn">Delete</button>
+                                    <button type="submit" class="btn delete-btn">Delete</button>
                                 </form>
                             </div>
                         </div>
