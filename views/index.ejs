@@ -1,8 +1,17 @@
 <%- include("partials/header.ejs") %>
 
 <h2>My Books</h2>
-<p>I have currently read 6 books as of November 2026. You can add, edit, or delete book entries on this
-    list as you please.</p>
+<% if (locals.books) { %>
+    <p>I have currently read <%= locals.books.length %> books as of
+        <%= new Intl.DateTimeFormat("en-US", {month: "long"}).format(new Date()) %>
+        <%= new Date().getFullYear() %>.
+        You can add, edit, or delete book entries on this list as you please.</p>
+<% } else { %>
+    <p>I have currently read no books as of
+        <%= new Intl.DateTimeFormat("en-US", {month: "long"}).format(new Date()) %>
+        <%= new Date().getFullYear() %>.
+        You can add, edit, or delete book entries on this list as you please.</p>
+<% } %>
 
 <button type="submit" class="btn add-btn">
     <a href="/add">Add Book</a>
