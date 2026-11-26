@@ -33,9 +33,6 @@ const db_config: PoolConfig = {
  */
 const db: Pool = new pg.Pool(db_config);
 
-// Neon database handler
-pool.on('error', (error) => console.error('Postgres pool error:', error.message));
-
 /**
  * Initializes the array to store book entries
  */
