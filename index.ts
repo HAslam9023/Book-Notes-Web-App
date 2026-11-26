@@ -29,9 +29,6 @@ const db_config: PoolConfig = {
  */
 const db: Pool = new pg.Pool(db_config);
 
-// Database error handling
-db.on("error", (error: Error): void => console.error('Postgres pool error:', error.message));
-
 /**
  * Initializes the array to store book entries
  */
