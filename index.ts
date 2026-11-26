@@ -85,7 +85,7 @@ function getAddBookPage(_req: Request, res: Response): void
  */
 async function addBookEntry(req: Request, res: Response): Promise<void>
 {
-    const formData: Omit<BookEntry, "id"> = req.body;
+    const formData: Omit<BookEntry, "id" | "cover_img_src"> = req.body;
 
     try
     {
@@ -99,8 +99,7 @@ async function addBookEntry(req: Request, res: Response): Promise<void>
         try
         {
             await db.query(
-                "INSERT INTO books (title, rating, date, notes, cover_img_src) " +
-                "VALUES ($1, $2, $3, $4, $5)",
+                "INSERT INTO books (title, rating, date, notes, cover_img_src) VALUES ($1, $2, $3, $4, $5)",
                 [formData.title, formData.rating, formData.date, formData.notes, cover_img_url]
             );
 
