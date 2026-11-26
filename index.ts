@@ -118,6 +118,11 @@ async function addBookEntry(req: Request, res: Response): Promise<void>
     }
 }
 
+/**
+ * Renders the edit book page
+ * @param req The request object
+ * @param res The response object
+ */
 function getEditBookPage(req: Request, res: Response): void
 {
     const formData: Omit<BookEntry, "cover_img_src"> = req.body;
