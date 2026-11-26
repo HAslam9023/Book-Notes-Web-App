@@ -54,7 +54,7 @@ async function getHomePage(_req: Request, res: Response): Promise<void>
     try
     {
         // Retrieves book entries from the database
-        const result: QueryResult<BookEntry> = await db.query("SELECT * FROM books ORDER BY id");
+        const result: QueryResult<BookEntry> = await db.query("SELECT * FROM books ORDER BY date");
 
         books = result.rows;
 
