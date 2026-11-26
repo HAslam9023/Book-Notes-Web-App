@@ -21,11 +21,7 @@ dotenv.config();
  * Initializes the database configuration
  */
 const db_config: PoolConfig = {
-    user: process.env.LOCAL_DB_USER || "postgres",
-    host: process.env.LOCAL_DB_HOST || "localhost",
-    database: process.env.LOCAL_DB_DATABASE || "book_notes",
-    password: process.env.LOCAL_DB_PASSWORD,
-    port: process.env.LOCAL_DB_PORT ? parseInt(process.env.LOCAL_DB_PORT) : 5432,
+    connectionString: process.env.DATABASE_URL
 };
 
 /**
