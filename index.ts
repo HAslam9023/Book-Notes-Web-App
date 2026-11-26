@@ -69,6 +69,31 @@ async function getHomePage(_req: Request, res: Response): Promise<void>
 }
 
 /**
+ * Retrieves the cover image URL for a book title
+ * @param title The title of the book
+ * @returns The cover image URL
+ */
+async function getCoverImgURL(title: string): Promise<string>
+{
+    try
+    {
+        const response: AxiosResponse = await axios.get(
+            `https://openlibrary.org/search.json?title=${title}`
+        );
+
+        const cover_edition_key: string = response.data.docs[0].cover_edition_key;
+
+        return `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`;
+    }
+    catch (error)
+    {
+        console.log(error);
+
+        return "";
+    }
+}
+
+/**
  * Renders the add book page
  * @param _req The request object
  * @param res The response object
@@ -89,32 +114,19 @@ async function addBookEntry(req: Request, res: Response): Promise<void>
 
     try
     {
-        const response: AxiosResponse = await axios.get(
-            `https://openlibrary.org/search.json?title=${formData.title}`
+        const cover_img_url: string = await getCoverImgURL(formData.title);
+
+        await db.query("INSERT INTO books (title, rating, date, notes, cover_img_src) VALUES ($1, $2, $3, $4, $5)",
+            [formData.title, formData.rating, formData.date, formData.notes, cover_img_url]
         );
 
-        const cover_edition_key: string = response.data.docs[0].cover_edition_key;
-        const cover_img_url: string = `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`;
-
-        try
-        {
-            await db.query(
-                "INSERT INTO books (title, rating, date, notes, cover_img_src) VALUES ($1, $2, $3, $4, $5)",
-                [formData.title, formData.rating, formData.date, formData.notes, cover_img_url]
-            );
-
-            res.redirect("/");
-        }
-        catch (error)
-        {
-            console.log(error);
-
-            res.redirect("/add");
-        }
+        res.redirect("/");
     }
     catch (error)
     {
         console.log(error);
+
+        res.redirect("/add");
     }
 }
 
@@ -128,6 +140,27 @@ function getEditBookPage(req: Request, res: Response): void
     const formData: Omit<BookEntry, "cover_img_src"> = req.body;
 
     res.render("book.ejs", {data: formData});
+}
+
+async function editBookEntry(req: Request, res: Response): Promise<void>
+{
+    const formData: Omit<BookEntry, "cover_img_src"> = req.body;
+
+    try
+    {
+        const cover_img_url: string = await getCoverImgURL(formData.title);
+
+        await db.query(
+            "UPDATE books SET title = $1, rating = $2, date = $3, notes = $4, cover_img_src=$5 WHERE id = $6",
+            [formData.title, formData.rating, formData.date, formData.notes, cover_img_url, formData.id]
+        );
+
+        res.redirect("/");
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
 }
 
 /**
@@ -173,6 +206,9 @@ app.post("/delete", deleteBookEntry);
 
 // The edit POST route
 app.post("/edit", getEditBookPage);
+
+// The editBook POST route
+app.post("/editBook", editBookEntry);
 
 // Starts the server
 app.listen(port, logServerStart);
