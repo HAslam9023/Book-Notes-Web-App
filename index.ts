@@ -140,6 +140,11 @@ function getEditBookPage(req: Request, res: Response): void
     res.render("book.ejs", {data: formData});
 }
 
+/**
+ * Edits a book entry in the database
+ * @param req The request object
+ * @param res The response object
+ */
 async function editBookEntry(req: Request, res: Response): Promise<void>
 {
     const formData: Omit<BookEntry, "cover_img_src"> = req.body;
