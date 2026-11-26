@@ -140,3 +140,29 @@ input[type="date"]::-webkit-calendar-picker-indicator
 {
     filter: invert(1);
 }
+
+.sort-btn {
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 11px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid #7c6fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.2s ease;
+    background: transparent;
+    color: #7c6fff;
+}
+.sort-btn:hover {
+    background: #7c6fff;
+    color: #ffffff;
+}
+
+.sort-buttons
+{
+    flex-direction: row;
+    margin-top: 10px;
+}

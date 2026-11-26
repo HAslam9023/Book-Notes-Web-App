@@ -17,6 +17,18 @@
     <a href="/add">Add Book</a>
 </button>
 
+<div class="flex sort-buttons">
+    <button class="btn sort-btn">
+        <a href="/sort/title">Sort by Title</a>
+    </button>
+    <button class="btn sort-btn">
+        <a href="/sort/date">Sort by Date</a>
+    </button>
+    <button class="btn sort-btn">
+        <a href="/sort/rating">Sort by Rating</a>
+    </button>
+</div>
+
 <div class="grid">
     <% if (locals.books) { %>
         <% for (let book of locals.books) { %>

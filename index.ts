@@ -34,6 +34,11 @@ const db_config: PoolConfig = {
 const db: Pool = new pg.Pool(db_config);
 
 /**
+ * Initializes the sort type for book entries
+ */
+let bookSortType: string = "id";
+
+/**
  * Initializes the array to store book entries
  */
 let books: BookEntry[] = [];
@@ -51,8 +56,9 @@ async function getHomePage(_req: Request, res: Response): Promise<void>
 {
     try
     {
-        // Retrieves book entries from the database
-        const result: QueryResult<BookEntry> = await db.query("SELECT * FROM books ORDER BY date");
+        let result: QueryResult<BookEntry> = await db.query(
+            `SELECT * FROM books ORDER BY ${bookSortType}`
+        );
 
         books = result.rows;
 
@@ -64,6 +70,42 @@ async function getHomePage(_req: Request, res: Response): Promise<void>
 
         res.render("index.ejs");
     }
+}
+
+/**
+ * Sorts the book entries by title
+ * @param _req The request object
+ * @param res The response object
+ */
+function sortByTitle(_req: Request, res: Response): void
+{
+    bookSortType = "title";
+
+    res.redirect("/");
+}
+
+/**
+ * Sorts the book entries by date
+ * @param _req The request object
+ * @param res The response object
+ */
+function sortByDate(_req: Request, res: Response): void
+{
+    bookSortType = "date";
+
+    res.redirect("/");
+}
+
+/**
+ * Sorts the book entries by rating
+ * @param _req The request object
+ * @param res The response object
+ */
+function sortByRating(_req: Request, res: Response): void
+{
+    bookSortType = "rating";
+
+    res.redirect("/");
 }
 
 /**
@@ -197,6 +239,11 @@ function logServerStart(): void
 
 // The root GET route
 app.get("/", getHomePage);
+
+// The sort GET routes
+app.get("/sort/title", sortByTitle);
+app.get("/sort/date", sortByDate);
+app.get("/sort/rating", sortByRating);
 
 // The add GET route
 app.get("/add", getAddBookPage);
